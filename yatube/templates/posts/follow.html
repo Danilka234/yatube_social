@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load cache %}
+{% block title %}Последние обновления на сайте{%endblock title%}
+{% block content %}
+<div class="container py-5">     
+  <h1>Подписки на авторов</h1>
+  <article>
+    {% include "includes/switcher.html" %}
+    {% cache 10 follow_page page_obj.number %}
+    {% for post in page_obj %}
+      {% include "includes/posts_content.html" %}
+      {% if post.group %}
+      <a href="{% url 'posts:group_list' post.group.slug %}"
+      >все записи группы</a>
+      {% endif %}
+      <br>
+      <a href="{% url 'posts:post_detail' post.pk %}">
+        подробная информация
+      </a>
+      {% if not forloop.last %}
+        <hr />
+      {% endif %}
+    {% endfor %}
+    {% endcache %}
+    {% include "includes/paginator.html" %}
+  </article>
+  </div>
+{% endblock %}

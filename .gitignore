@@ -149,4 +149,6 @@ dmypy.json
 static/
 yatube/posts/static/
 yatube/media/
+yatube/posts_cache/
+yatube/sent_emails/
 
