@@ -5,17 +5,27 @@ User = get_user_model()
 
 
 class Contact(models.Model):
-    name = models.CharField(max_length=100)
-    email = models.EmailField()
+    name = models.CharField(
+        verbose_name="Имя",
+        max_length=100
+    )
+    email = models.EmailField(
+        verbose_name="email",
+    )
     subject = models.CharField(max_length=100)
     body = models.TextField()
     is_answered = models.BooleanField(default=False)
 
 
 class Group(models.Model):
-    title = models.CharField(max_length=200)
+    title = models.CharField(
+        verbose_name="Название группы",
+        max_length=200
+    )
     slug = models.SlugField(unique=True)
-    description = models.TextField()
+    description = models.TextField(
+        verbose_name="Описание",
+    )
 
     def __str__(self):
         return self.title
@@ -64,11 +74,13 @@ class Post(models.Model):
 class Comment(models.Model):
     post = models.ForeignKey(
         Post,
+        verbose_name="Пост",
         on_delete=models.CASCADE,
         related_name="comments"
     )
     author = models.ForeignKey(
         User,
+        verbose_name="Автор",
         on_delete=models.CASCADE,
         related_name="comments"
     )
@@ -87,11 +99,13 @@ class Comment(models.Model):
 class Follow(models.Model):
     user = models.ForeignKey(
         User,
+        verbose_name="Подписчик",
         on_delete=models.CASCADE,
         related_name="follower"
     )
     author = models.ForeignKey(
         User,
+        verbose_name="Автор",
         on_delete=models.CASCADE,
         related_name="following"
     )

@@ -1,45 +1,86 @@
 {% extends "base.html" %}
+{% load cache %}
 {% block title %}
 Профиль пользователя: {{ author.get_full_name }}
-{% endblock title %}
+{%endblock title%}
 {% load thumbnail %}
 {% block content %}
-<div class="mb-5">        
-  <h1>Все посты пользователя {{ author.get_full_name }} </h1>
-  <h3>Всего постов: {{ posts.count }} </h3>
-  <article>
-  {% if following %}
-    <a
-      class="btn btn-lg btn-light"
-      href="{% url 'posts:profile_unfollow' author.username %}" role="button"
-    >
-      Отписаться
-    </a>
-  {% else %}
-      <a
-        class="btn btn-lg btn-primary"
-        href="{% url 'posts:profile_follow' author.username %}" role="button"
-      >
-        Подписаться
-      </a>
-   {% endif %}
-  
-    {% for post in page_obj %}
-      {% include "includes/posts_content.html" %}
-        {% if not forloop.last %}
+<main class="container py-5">
+  <div class="row g-5">
+    <div class="col-md-8">
+      <h1 class="text-center">Все посты пользователя {{ author.get_full_name }} </h1>
+      <h3 class="text-center">Всего постов: {{ posts.count }} </h3>
+      {% if following %}
+      <div class="d-flex justify-content-center">
+        <a
+          class="btn btn-lg btn-danger"
+          href="{% url 'posts:profile_unfollow' author.username %}" role="button">
+          Отписаться от {{ author.username }}
+        </a>
+      </div>
+      {% else %}
+      <div class="d-flex justify-content-center">
+        <a
+          class="btn btn-lg btn-success"
+          href="{% url 'posts:profile_follow' author.username %}" role="button">
+          Подписаться на {{ author.username }}
+        </a>
+      </div>
+      {% endif %}
+        <article class="blog-post">
+          {% include "includes/switcher.html" %}
+          {% cache 2 profile_page_obj.number %}
+          {% for post in page_obj %}
+        {% include "includes/posts_content.html" %}
+          {% if not forloop.last %}
         <hr />
-        {% endif %}
-      <a href="{% url 'posts:post_detail' post.pk %}">подробная информация</a>
-      <br>
-      {% thumbnail post.image "960x339" crop="center" upscale=True as im %}
-    <img class="card-img my-2" src="{{ im.url }}">
-  {% endthumbnail %}
-    </article>
-  {% if post.group %}
-    <a href="{% url 'posts:group_list' post.group.slug %}">все записи группы</a>
-  {% endif %}      
-  <hr>
-  {% endfor %}
-  {% include "includes/paginator.html" %}
-</div>
+          {% endif %}
+        <a href="{% url 'posts:post_detail' post.pk %}">подробная информация</a>
+        <br>
+        {% thumbnail post.image "400x400" crop="center" upscale=True as im %}
+          <img class="card-img my-2" src="{{ im.url }}">
+        {% endthumbnail %}
+        </article>
+        {% if post.group %}
+        <a href="{% url 'posts:group_list' post.group.slug %}">все записи группы</a>
+        {% endif %}      
+        <hr>
+        {% endfor %}
+        {% endcache %}
+      </article>
+      <nav class="blog-pagination" aria-label="Pagination">
+        <a class="btn btn-outline-primary" href="#">Наверх</a>
+      </nav>
+      {% include "includes/paginator.html" %}
+    </div>
+    <div class="col-md-4">
+      <div class="position-sticky" style="top: 2rem;">
+        <div class="p-4 mb-3 bg-light rounded">
+          <h4 class="fst-italic">Здесь могла бы быть ваша реклама</h4>
+          <p class="mb-0">В будущем дополнится ссылкой:)</p>
+        </div>
+        <div class="p-4">
+          <h4 class="fst-italic">Elsewhere</h4>
+          <ol class="list-unstyled">
+            <li>
+              <a href="https://github.com/Danilka234" target="_blank">
+                GitHub
+              </a>
+            </li>
+            <li>
+              <a href="https://www.linkedin.com/in/danil-yakushev-16425b255"
+              target="_blank">LinkedIn
+              </a>
+            </li>
+            <li>
+              <a href="https://www.facebook.com/danilyakushev" target="_blank">
+              Facebook
+              </a>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
 {% endblock %}

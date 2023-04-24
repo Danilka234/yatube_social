@@ -8,6 +8,7 @@ from django.urls import reverse
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django import forms
 from ..models import Follow, Post, Group
+from django.db.models import Count
 
 
 User = get_user_model()
@@ -46,6 +47,8 @@ class PostsPagesTests(TestCase):
             author=cls.user,
             group=cls.group,
         )
+        cls.better_post = Post.objects.annotate(
+            num_comments=Count('comments')).order_by('-num_comments').first()
 
     @classmethod
     def tearDownClass(cls):
@@ -53,6 +56,7 @@ class PostsPagesTests(TestCase):
         shutil.rmtree(TEMP_MEDIA_ROOT, ignore_errors=True)
 
     def setUp(self):
+        cache.clear()
         self.authorized_client = Client()
         self.authorized_client.force_login(self.user)
 
@@ -68,6 +72,9 @@ class PostsPagesTests(TestCase):
             reverse("posts:post_detail",
                     kwargs={"post_id": self.post.id}): (
                 "posts/post_detail.html"),
+            # reverse("posts:post_detail",
+            #         kwargs={"better_post_id": self.better_post.id}): (
+            #     "posts/post_detail.html"),
             reverse("posts:post_edit",
                     kwargs={"post_id": self.post.id}): (
                 "posts/post_create.html"),
@@ -208,9 +215,9 @@ class PaginatorViewsTest(TestCase):
             reverse("posts:group_list",
                     kwargs={"slug": self.group.slug}
                     ): self.LENGHT_PAGE,
-            # reverse("posts:profile",
-            #         kwargs={"username": self.post.author.username}
-            #         ): self.LENGHT_PAGE
+            reverse("posts:profile",
+                    kwargs={"username": self.post.author.username}
+                    ): self.LENGHT_PAGE
 
         }
         for value, expected in test_pages.items():
@@ -227,9 +234,9 @@ class PaginatorViewsTest(TestCase):
             reverse("posts:group_list",
                     kwargs={"slug": self.group.slug}
                     ): self.LENGHT_PAGE,
-            # reverse("posts:profile",
-            #         kwargs={"username": self.post.author.username}
-            #         ): self.LENGHT_PAGE
+            reverse("posts:profile",
+                    kwargs={"username": self.post.author.username}
+                    ): self.LENGHT_PAGE
 
         }
         for value, expected in test_pages.items():
@@ -250,10 +257,6 @@ class TestFollow(TestCase):
             author=cls.author_following,
             text="Текст для проверки подписок."
         )
-        # cls.follow = Follow.objects.create(
-        #     user=cls.user_follower,
-        #     author=cls.author_following
-        # )
 
     def setUp(self):
         self.author_following_client = Client()

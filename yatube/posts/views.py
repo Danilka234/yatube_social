@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-# from django.urls import reverse
+from django.db.models import Count
 from .models import Post, Group, User, Follow
 from django.core.paginator import Paginator
 from .forms import PostForm, CommentForm
@@ -22,9 +22,14 @@ def index(request):
     template = ("posts/index.html")
     name = "Это главная страница проекта Yatube"
     posts = Post.objects.all()
+    # Считаем количество комментариев каждого поста и
+    # передаем в контекст для отображения лучшего поста.
+    better_post = Post.objects.annotate(
+        num_comments=Count('comments')).order_by('-num_comments').first()
     context = {
         "top_name": name,
-        "posts": posts
+        "posts": posts,
+        "better_post": better_post
     }
     context.update(page_content(posts, request))
     return render(request, template, context)

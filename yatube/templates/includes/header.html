@@ -1,75 +1,93 @@
-<!--Верхняя часть страницы-->
 {% load static %}
-<!DOCTYPE html>
-<html>
-  <header>
-    <nav class="navbar navbar-light" style="background-color: lightskyblue">
-      <div class="container">
-        <a class="navbar-brand" href="{% url 'posts:index' %}">
-          <img src="{% static 'img/logo.png' %}" width="30" height="30"
-          class="d-inline-block align-top" alt="">
-          <span style="color:red">Ya</span>tube
-        </a>
-        <ul class="nav nav-pills">
-          {% with request.resolver_match.view_name as view_name %}
-          <li class="nav-item"> 
-            <li class="nav-item">              
-              <a class="nav-link {% if view_name  == "about:author" %}
-                active
-              {% endif %}" 
-                href="{% url 'about:author' %}">Об авторе </a>
-            </li>
-          <li class="nav-item">
-            <a class="nav-link {% if view_name  == "about:tech" %}
-              active
-            {% endif %}"
-            href="{% url "about:tech" %}">Технологии</a>
-          </li>
-          {% if request.user.is_authenticated %}
-          <li class="nav-item"> 
-            <a class="nav-link {% if view_name  == 'posts:post_create' %}
-              active
-            {% endif %}"
-            href="{% url "posts:post_create" %}">Новая запись</a>
-          </li>
-          <li class="nav-item"> 
-            <a class="nav-link link-light
-              {% if view_name  == "users:password_change_form" %}
-                active
+
+<header style="height: 70px;">
+<nav class="navbar fixed-top navbar-expand-lg bg-secondary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'posts:index' %}">
+      <img src="{% static 'img/logo.png' %}" width="30" height="30"
+      class="d-inline-block align-top" alt="">
+      <span style="color:red">Ya</span>tube
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Переключатель навигации">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="d-flex justify-content-end">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      {% with request.resolver_match.view_name as view_name %}
+      <li class="nav-item"> 
+        <li class="nav-item">              
+          <a class="nav-link {% if view_name  == "about:author" %}
+            active
+          {% endif %}" 
+            href="{% url 'about:author' %}">
+            <button type="button" class="btn btn-light">Об авторе</button>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if view_name  == "about:tech" %}
+            active
               {% endif %}"
-            href="{% url "users:password_change_form" %}"
-            >Изменить пароль</a>
-          </li>
-          <li class="nav-item"> 
-            <a class="nav-link link-light {% if view_name  == 'users:logout' %}
+              href="{% url "about:tech" %}">
+            <button type="button" class="btn btn-light">Технологии</button>
+          </a>
+        </li>
+        {% if request.user.is_authenticated %}
+        <li class="nav-item"> 
+          <a class="nav-link {% if view_name  == 'posts:post_create' %}
+            active
+            {% endif %}"
+            href="{% url "posts:post_create" %}">
+            <button type="button" class="btn btn-light">Новая запись</button>
+          </a>
+        </li>
+        {% endif %}
+        {% if request.user.is_authenticated %}
+        <li class="nav-item dropstart">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <button type="button" class="btn btn-success">Профиль</button>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" role="button" aria-expanded="false">
+            {{ user.username }}
+            </a>
+            <a class="dropdown-item
+            {% if view_name  == "users:password_change_form" %}
+              active
+            {% endif %}"
+            href="{% url "users:password_change_form" %}">Изменить пароль 
+          </a>
+          <div class="dropdown-divider"></div>
+            <a class="dropdown-item 
+            {% if view_name  == 'users:logout' %}
               active
             {% endif %}
             "href="{% url 'users:logout' %}">Выйти</a>
-          </li>
-          <li class="nav-item"> 
-            <li>
-              <a class="nav-link link-light" >
-              Пользователь: <br>{{ user.username }}
-              </a>
-            </li>
-          </li>
-          {% else %}
-          <li class="nav-item"> 
-            <a class="nav-link link-light {% if view_name  == "users:login" %}
-              active
-            {% endif %}"
-            href="{% url "users:login" %}">Войти</a>
-          </li>
-          <li class="nav-item"> 
-            <a class="nav-link link-light {% if view_name  == "users:signup" %}
-              active
-            {% endif %}"
-            href="{% url "users:signup" %}">Регистрация</a>
-          </li>
-          {% endif %}
-          {% endwith %}
-        </ul>
-      </div>
-    </nav>      
-  </header> 
-</html>
+          </div>
+          </ul>
+        </li>
+        {% else %}
+        <li class="nav-item"> 
+          <a class="nav-link link-light {% if view_name  == "users:login" %}
+            active
+          {% endif %}"
+          href="{% url "users:login" %}">
+          <button type="button" class="btn btn-light">Войти в аккаунт</button>
+        </a>
+        </li>
+        <li class="nav-item"> 
+          <a class="nav-link link-light {% if view_name  == "users:signup" %}
+            active
+          {% endif %}"
+          href="{% url "users:signup" %}">
+            <button type="button" class="btn btn-success">Регистрация</button>
+          </a>
+        </li>
+        {% endif %}
+      </ul>
+      {% endwith %}
+    </div>
+  </div>
+</div>
+</nav>
+</header> 

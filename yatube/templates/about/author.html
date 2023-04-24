@@ -1,7 +1,65 @@
 {% extends "base.html" %}
 {% block title %}Об авторе проекта{% endblock %}
-
 {% block content %}
-    <h1> {{ title }} </h1>
-    <p> Тренировочный текст. Есть что добавить, но позже. </p>
+<main>
+    <div class="container py-4">
+      <div class="p-5 mb-4 bg-light rounded-5">
+        <div class="container-fluid py-5">
+          <h1 class="display-5 fw-bold text-center">Об авторе проекта</h1>
+          <p class="col-md-8 fs-4">Вводные данные:
+                <br>
+                Имя: Данил
+                <br>
+                Возвраст: 26 лет
+                <br>
+                email: yakushev.danilkas@yandex.ru
+                <br>
+                Студент Яндекс Практикума
+          </p>
+        </div>
+      </div>
+      <div class="row align-items-md-stretch">
+        <div class="col-md-6">
+          <div class="h-80 p-5 text-white bg-dark rounded-5">
+            <h2>Ссылки на соц. сети</h2>
+            <p>
+              <ol class="list-unstyled">
+                <li class="nav-item">
+                  <a href="https://github.com/Danilka234" target="_blank">
+                <button class="btn btn-outline-light" type="button">GitHub</button>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.linkedin.com/in/danil-yakushev-16425b255"
+                  target="_blank">
+                    <button class="btn btn-outline-light" type="button">LinkedIn
+                    </button>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.facebook.com/danilyakushev" target="_blank">
+                  <button class="btn btn-outline-light" type="button">Facebook</button>
+                </a>
+              </li>
+            </ol>
+            </p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="h-100 p-5 bg-light border rounded-5">
+            <h2>Краткое описание</h2>
+            <p>Учился по специальности "Разработка и эксплуатация нефтегазовых месторождений. 
+                Работал 3 года в Американской нефтесервисной компании Baker Hughes инженером 
+                по обслуживанию и наладке телеметрических нефтегазовых систем. 
+                Работа интересная, но захотелось чего-то нового, а так как я люблю ковыряться 
+                в компьютерах и тут я подумал, а почему я еще не программирую?
+                Далее были поиски школ программирования и был выбран Яндекс Практикум, 
+                так как Яндекс у всех на слуху, доверия и отзывы хорошие.
+                Так что сейчас я студент Яндекс Практикума."
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
 {% endblock %}

@@ -1,20 +1,55 @@
 {% extends "base.html" %}
 {% block title %}Технологии{% endblock %}
+{% load static %}
 {% block content %}
-<div class="row">
-  <h1>Вот что я умею:</h1>
-  <aside class="col-12 col-md-3">
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">
-        Python
-      </li>
-      <li class="list-group-item">
-        Django
-      </li>
-    </ul>
-  </aside>
-  <article class="col-12 col-md-9">
-    <p>Текст страницы "Технологии"</p>
-  </article>
-</div>
+<main>
+  <div class="container py-4">
+    <div class="p-5 mb-4 bg-light rounded-5">
+      <div class="container-fluid py-5">
+        <h1 class="display-5 fw-bold text-center">Используемые технологии при создании проекта</h1>
+        <p class="col-md-8 fs-4">
+          <br>
+              Python Language
+              <br>
+              Django Framework
+              <br>
+              JavaScript
+              <br>
+              CSS
+              <br>
+              Bootstrap Framework
+        </p>
+      </div>
+    </div>
+      <div class="col-md-12">
+        <div class="h-100 p-5 bg-light border rounded-5 text-align-center">
+          <h2 class="text-center">Ознакомтесь с языками нажав на иконку</h2>
+          <div class="d-flex justify-content-center">
+            <a href="https://www.javascript.com/" target="_blank">
+              <img src="{% static 'img/javascript_logo.png' %}" 
+              width="200" height="200">
+            </a> 
+            <a href="https://getbootstrap.com/" target="_blank">
+              <img src="{% static 'img/bootstrap-icons.png' %}" 
+              width="200" height="200">
+            </a> 
+            <a href="https://www.python.org/" target="_blank">
+              <img src="{% static 'img/Python_logo.png' %}" 
+              width="250" height="250">
+            </a> 
+            <a href="https://www.djangoproject.com/" target="_blank">
+              <img src="{% static 'img/django-python.png' %}" 
+              width="200" height="200">
+            </a>
+            <a href="https://www.w3.org/TR/CSS/#css" target="_blank">
+              <img src="{% static 'img/CSS_logo.png' %}" 
+              width="200" height="200">
+            </a>
+          </div>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
 {% endblock %} 
