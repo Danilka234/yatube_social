@@ -33,13 +33,8 @@
           {% for post in page_obj %}
         {% include "includes/posts_content.html" %}
           {% if not forloop.last %}
-        <hr />
           {% endif %}
         <a href="{% url 'posts:post_detail' post.pk %}">подробная информация</a>
-        <br>
-        {% thumbnail post.image "400x400" crop="center" upscale=True as im %}
-          <img class="card-img my-2" src="{{ im.url }}">
-        {% endthumbnail %}
         </article>
         {% if post.group %}
         <a href="{% url 'posts:group_list' post.group.slug %}">все записи группы</a>
