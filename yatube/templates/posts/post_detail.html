@@ -14,8 +14,9 @@
       <li class="list-group-item">
         Группа: {{ post.group }}
         <br>
-        <a href="{% url 'posts:group_list' post.group.slug %}">
-          все записи группы
+        <a href="{% url 'posts:group_list' post.group.slug %}"
+        style="text-decoration: none;">
+          все записи категории
         </a>
       </li>
       {% endif %}
@@ -26,13 +27,15 @@
         Всего постов автора:  <span> {{ posts_count }} </span>
       </li>
       <li class="list-group-item">
-        <a href="{% url "posts:profile" post.author %}">
+        <a href="{% url "posts:profile" post.author %}"
+        style="text-decoration: none;">
           все посты пользователя
         </a>
       </li>
       {% if user == post.author %}
       <li class="list-group-item">
-        <a href="{% url 'posts:post_edit' post_id=post.pk %}" >
+        <a href="{% url 'posts:post_edit' post_id=post.pk %}" 
+        style="text-decoration: none;">
         редактировать запись
         </a>
       </li>
@@ -40,11 +43,15 @@
       <li>
     </ul>
   </aside>
-  <article class="col-12 col-md-9">
+  <article class="col-12 col-md-8" style="border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 5px 5px 10px #000;
+  margin-top: 25px;
+  margin-left: 3%;">
     {% thumbnail post.image "960x280" crop="center" upscale=True as im %}
       <img class="card-img my-2" src="{{ im.url }}">
     {% endthumbnail %}
-    <p>{{ post.text }}</p>
+    <p>{{ post.text|linebreaksbr }}</p>
     <br>
     {% include "includes/comments.html" %}
   </article>

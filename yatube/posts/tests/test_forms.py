@@ -144,24 +144,3 @@ class TestPostForm(TestCase):
             ).exists(),
         )
         self.assertEqual(response.status_code, HTTPStatus.OK)
-
-    # def test_index_page_cache(self):
-    #     """Проверка хранения кэша на главной странице index."""
-    #     response = self.authorized_user.get(reverse("posts:index"))
-    #     posts = response.content
-    #     # Для отсувствия конфликта тестовых записей, создадим еще один пост.
-    #     Post.objects.create(
-    #         text="Тестовый текст тестируемого кэша.",
-    #         author=self.user,
-    #     )
-    #     response_for_last_post = self.authorized_user.get(
-    #         reverse("posts:index")
-    #     )
-    #     last_post = response_for_last_post.content
-    #     self.assertEqual(last_post, posts)
-    #     cache.clear()
-    #     response_new_post = self.authorized_user.get(
-    #         reverse("posts:index")
-    #     )
-    #     new_post = response_new_post.content
-    #     self.assertNotEqual(last_post, new_post)

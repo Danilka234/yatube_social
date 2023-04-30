@@ -18,6 +18,7 @@
           Отписаться от {{ author.username }}
         </a>
       </div>
+      <br>
       {% else %}
       <div class="d-flex justify-content-center">
         <a
@@ -26,23 +27,21 @@
           Подписаться на {{ author.username }}
         </a>
       </div>
+      <br>
       {% endif %}
-        <article class="blog-post">
           {% include "includes/switcher.html" %}
-          {% cache 2 profile_page_obj.number %}
-          {% for post in page_obj %}
-        {% include "includes/posts_content.html" %}
-          {% if not forloop.last %}
-          {% endif %}
-        <a href="{% url 'posts:post_detail' post.pk %}">подробная информация</a>
-        </article>
-        {% if post.group %}
-        <a href="{% url 'posts:group_list' post.group.slug %}">все записи группы</a>
-        {% endif %}      
-        <hr>
+        {% cache 20 index_page page_obj.number %}
+        {% for post in page_obj %}
+        <article class="blog-post" style="border-radius: 20px;
+          overflow: hidden;
+          box-shadow: 5px 5px 10px #000;
+          margin-top: 25px;">
+          {% include "includes/posts_content.html" %}
+        <br>
+      </article>
         {% endfor %}
         {% endcache %}
-      </article>
+      <br>
       <nav class="blog-pagination" aria-label="Pagination">
         <a class="btn btn-outline-primary" href="#">Наверх</a>
       </nav>
@@ -56,23 +55,7 @@
         </div>
         <div class="p-4">
           <h4 class="fst-italic">Elsewhere</h4>
-          <ol class="list-unstyled">
-            <li>
-              <a href="https://github.com/Danilka234" target="_blank">
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://www.linkedin.com/in/danil-yakushev-16425b255"
-              target="_blank">LinkedIn
-              </a>
-            </li>
-            <li>
-              <a href="https://www.facebook.com/danilyakushev" target="_blank">
-              Facebook
-              </a>
-            </li>
-          </ol>
+          {% include "includes/contact_author.html" %}
         </div>
       </div>
     </div>

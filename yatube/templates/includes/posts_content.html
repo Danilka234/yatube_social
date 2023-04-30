@@ -1,13 +1,25 @@
 {% load thumbnail %}
-<ul>
-  <li>
-    Автор: {{ post.author.get_full_name }}
-  </li>
-  <li>
-    Дата публикации: {{ post.pub_date|date:"d E Y" }}
-  </li>
-</ul>
+<p style="font-family: Arial, Helvetica, sans-serif;
+font-size: 16px;
+text-decoration: none;
+">Дата публикации: {{ post.pub_date|date:"d E Y" }}</p>
 {% thumbnail post.image "1920x1080" crop="center" upscale=True as im %}
   <img class="card-img my-2" src="{{ im.url }}">
 {% endthumbnail %}
-<p>{{ post.text }}</p>
+<p>{{ post.text|linebreaksbr|truncatewords:50 }}</p>
+<a class="nav-link-bottom" href="{% url 'posts:post_detail' post.pk %}">
+  подробнее
+</a>
+<br>
+<ul class="inform-about">
+  <li>
+    Автор:<a class="nav-link-bottom-post"  href="{% url 'posts:profile' post.author %}"
+    >   {{ post.author.get_full_name }} </a>
+  </li>
+  <li>
+    {% if post.group %}
+    Категория:<a class="nav-link-bottom-post" href="{% url 'posts:group_list' post.group.slug %}"
+      >  {{ post.group }}</a>
+    {% endif %}
+  </li>
+</ul>

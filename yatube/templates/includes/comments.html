@@ -1,15 +1,18 @@
 {% load user_filters %}
 
 {% if user.is_authenticated %}
-  <div class="card my-4">
+  <div class="card my-4" style="border-radius: 20px;
+          overflow: hidden;
+          box-shadow: 5px 5px 10px #000;
+          margin-top: 25px;">
     <h5 class="card-header">Добавить комментарий:</h5>
-    <div class="card-body">
+    <div class="card-body" >
       <form method="post" action="{% url 'posts:add_comment' post.id %}">
         {% csrf_token %}      
         <div class="form-group mb-2">
           {{ form.text|addclass:"form-control" }}
         </div>
-        <button type="submit" class="btn btn-primary">Отправить</button>
+        <button type="submit" class="nav-link-bottom-submit">Отправить</button>
       </form>
     </div>
   </div>
@@ -17,9 +20,9 @@
 
 {% for comment in comments %}
   <div class="media mb-4">
-    <div class="media-body">
-      <h5 class="mt-0">
-        <a href="{% url 'posts:profile' comment.author.username %}">
+    <div class="media-body" >
+      <h5 class="mt-0" >
+        <a href="{% url 'posts:profile' comment.author.username %}" style="text-decoration: none;">
           {{ comment.author.username }}
         </a>
       </h5>

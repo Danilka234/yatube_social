@@ -2,8 +2,11 @@
 {% block title %}<title>Зарегистрироваться</title>{% endblock %}
 {% block content %}
   <div class="row justify-content-center">
-    <div class="col-md-8 p-5">
-      <div class="card">
+    <div class="col-md-5 p-5">
+      <div class="card" style="border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 5px 5px 10px #000;
+      margin-top: 25px;">
         <div class="card-header">
           Зарегистрироваться
         </div>
@@ -44,7 +47,7 @@
               </div>
               {% endfor %}
               <div class="col-md-6 offset-md-4">
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="nav-link-bottom-submit">
                   Зарегистрироваться
                 </button>
               </div>

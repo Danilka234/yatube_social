@@ -1,7 +1,6 @@
 {% load static %}
-
-<header style="height: 70px;">
-<nav class="navbar fixed-top navbar-expand-lg bg-secondary">
+<header style="height: 90px;">
+<nav class="navbar fixed-top navbar-expand-lg" style="border-radius: 20px; background-color: #4b7777c7;">
   <div class="container-fluid">
     <a class="navbar-brand" href="{% url 'posts:index' %}">
       <img src="{% static 'img/logo.png' %}" width="30" height="30"
@@ -11,9 +10,9 @@
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Переключатель навигации">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="d-flex justify-content-end">
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <ul class="navbar-nav ms-auto mb-auto">
       {% with request.resolver_match.view_name as view_name %}
       <li class="nav-item"> 
         <li class="nav-item">              
@@ -21,7 +20,7 @@
             active
           {% endif %}" 
             href="{% url 'about:author' %}">
-            <button type="button" class="btn btn-light">Об авторе</button>
+            <button type="button"  class="nav-link-bottom-header">Об авторе</button>
           </a>
         </li>
         <li class="nav-item">
@@ -29,7 +28,7 @@
             active
               {% endif %}"
               href="{% url "about:tech" %}">
-            <button type="button" class="btn btn-light">Технологии</button>
+            <button type="button" class="nav-link-bottom-header">Технологии</button>
           </a>
         </li>
         {% if request.user.is_authenticated %}
@@ -38,25 +37,30 @@
             active
             {% endif %}"
             href="{% url "posts:post_create" %}">
-            <button type="button" class="btn btn-light">Новая запись</button>
+            <button type="button" class="nav-link-bottom-header">Новая запись</button>
           </a>
         </li>
         {% endif %}
         {% if request.user.is_authenticated %}
         <li class="nav-item dropstart">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <button type="button" class="btn btn-success">Профиль</button>
+            <button type="button" class="nav-link-bottom-header">Профиль</button>
           </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <ul class="dropdown-menu" style="" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" role="button" aria-expanded="false">
-            {{ user.username }}
             </a>
             <a class="dropdown-item
+              {% if view_name  == "posts:profile" %}
+                active
+              {% endif %}"
+                href="{% url "posts:profile" user.username %}"> {{ user.username }}
+            </a>
+              <a class="dropdown-item
             {% if view_name  == "users:password_change_form" %}
               active
             {% endif %}"
-            href="{% url "users:password_change_form" %}">Изменить пароль 
-          </a>
+              href="{% url "users:password_change_form" %}">Изменить пароль 
+            </a>
           <div class="dropdown-divider"></div>
             <a class="dropdown-item 
             {% if view_name  == 'users:logout' %}
@@ -72,7 +76,7 @@
             active
           {% endif %}"
           href="{% url "users:login" %}">
-          <button type="button" class="btn btn-light">Войти в аккаунт</button>
+          <button type="button" class="nav-link-bottom-header">Войти в аккаунт</button>
         </a>
         </li>
         <li class="nav-item"> 
@@ -80,13 +84,13 @@
             active
           {% endif %}"
           href="{% url "users:signup" %}">
-            <button type="button" class="btn btn-success">Регистрация</button>
+            <button type="button" class="nav-link-bottom-header">Регистрация</button>
           </a>
         </li>
         {% endif %}
       </ul>
       {% endwith %}
-    </div>
+ 
   </div>
 </div>
 </nav>

@@ -6,20 +6,17 @@
   <p>{{ group.description }}</p>
   <article>
     {% for post in page_obj %}
-      {% include "includes/posts_content.html" %}
+      <article class="blog-post" style="border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 5px 5px 10px #000;
+      margin-top: 25px;">
+    {% include "includes/posts_content.html" %}
+    <br>
+      </article>
+      {% endfor %}
       {% if not forloop.last %}
       {% endif %}
-      <a href="{% url 'posts:post_detail' post.pk %}">
-        подробная информация
-      </a>
-      <p>
-      {% if post.group %}
-      <a href="{% url 'posts:group_list' post.group.slug %}">
-        все записи группы
-      </a>
       <hr>
-      {% endif %} 
-    {% endfor %}
     {% include "includes/paginator.html" %}
   </article>
   </div>

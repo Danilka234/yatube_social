@@ -6,23 +6,17 @@
   <div class="row g-5">
     <div class="col-md-8">
       <h1>Последние обновления автора</h1>
-      <article class="blog-post">
         {% include "includes/switcher.html" %}
+      <article class="blog-post" style="border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 5px 5px 10px #000;">
         {% cache 10 follow_page page_obj.number %}
         {% for post in page_obj %}
           {% include "includes/posts_content.html" %}
-          {% if post.group %}
-          <a href="{% url 'posts:group_list' post.group.slug %}"
-          >все записи группы</a>
-          {% endif %}
-          <br>
-          <a href="{% url 'posts:post_detail' post.pk %}">
-            подробная информация
-          </a>
-        <hr>
         {% endfor %}
-        {% endcache %}
+        <hr>
       </article>
+        {% endcache %}
       <nav class="blog-pagination" aria-label="Pagination">
         <a class="btn btn-outline-primary" href="#">Наверх</a>
       </nav>
@@ -37,23 +31,7 @@
 
         <div class="p-4">
           <h4 class="fst-italic">Elsewhere</h4>
-          <ol class="list-unstyled">
-            <li>
-              <a href="https://github.com/Danilka234"target="_blank">
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://www.linkedin.com/in/danil-yakushev-16425b255"
-                target="_blank">LinkedIn
-              </a>
-            </li>
-            <li>
-              <a href="https://www.facebook.com/danilyakushev"
-              target="_blank">Facebook
-              </a>
-            </li>
-          </ol>
+          {% include "includes/contact_author.html" %}
         </div>
       </div>
     </div>
