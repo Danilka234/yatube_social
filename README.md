@@ -11,16 +11,34 @@
 - Unittest
 
 ### Запуск проекта в dev-режиме
-Установите и активируйте виртуальное окружение
-Установите зависимости из файла requirements.txt
+**Клонируйте репозиторий:**
+
+**Установите и активируйте виртуальное окружение**
+```
+python -m venv venv
+source venv/bin/activate
+```
+
+**Установите зависимости из файла requirements.txt**
+
 ```
 pip install -r requirements.txt
-``` 
-В папке с файлом manage.py выполните команду:
+```
+
+**Выполните миграции**
+
+```
+python3 manage.py migrate
+```
+
+**В папке с файлом manage.py выполните команду:**
+
 ```
 python3 manage.py runserver(Mac OS)
 python manage.py runserver(Windows)
 ```
 
+**Перейдите на страницу http://127.0.0.1:8000/ в любом браузере**
+
 ### Автор
-Данил
+Danil Yakushev
